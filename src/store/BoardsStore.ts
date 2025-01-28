@@ -40,24 +40,21 @@ export const useBoardsStore = create<IBoardStore>()(
 				})),
 			removeBoard: (id) =>
 				set(state => ({
-					boards: state.boards.filter((_, index) => index !== id)
+					boards: state.boards.filter(board => board.id !== id)
 				})),
-			addList: (id, title) =>
-				set(state => ({
-					// const newList = {
-					// 	id: state.boards[id].list.length,
-					// 	title: title,
-					// 	listItems: [],
-					// };
-					boards: []
-
-
-					// boards: state.boards[id].list: {
-					// 	id: state.boards[id].list.length,
-					// 	title: title,
-					// 	listItems: [],
-					// }
-				}))
+			addList(boardId, listName) {
+				
+			},
+			// addList(boardId, listName) {
+			// 	set(state => ({
+			// 		boards: state.boards.map(board =>
+			// 			board.id === boardId
+			// 				? {
+			// 					id: 
+			// 				}
+			// 		)
+			// 	}))
+			// },
 		}),
 		{
 			name: 'boards-storage',

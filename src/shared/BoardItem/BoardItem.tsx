@@ -1,15 +1,33 @@
+import { useBoardsStore } from '@store/BoardsStore';
+
+import styles from './BoardsItem.module.css'
+
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons/faTrashCan";
 import Button from "../Button/Button";
 
 interface Props {
-    title: string,
-    link: string,
+  id: number,
+  title: string,
+  link: string,
 }
 
-export default function BoardItem({title, link}: Props) {
+export default function BoardItem({id, title, link}: Props) {
+  const removeBoard = useBoardsStore(state => state.removeBoard)
+
+  function removeCurrentBoard() {
+    removeBoard(id);
+  }
+
   return (
-    <Link to={`/boards/${link}`}>
-        <Button text={title} handleClick={() => null}/>
-    </Link>        
+    <div className={styles.container}>
+      <Link to={`/boards/${link}`}>
+          <Button handleClick={() => null}>{title}</Button>
+      </Link>        
+      <i className={styles.trashIcon} onClick={removeCurrentBoard}>
+        <FontAwesomeIcon icon={faTrashCan} />
+      </i>
+    </div>
   )
 }

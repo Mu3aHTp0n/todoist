@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.trashIcon {
+    font-size: 2rem;
+    color: #ca2d2d;
+    &:hover {
+        color: color-mix(in oklab, #ca2d2d, black 15%);
+    }
+    &:active {
+        color: color-mix(in oklab, #ca2d2d, black 25%);
+        transform: scale(.95);
+    }
+}
