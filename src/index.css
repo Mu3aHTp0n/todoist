@@ -49,6 +49,10 @@ button:focus-visible {
 
 i {
   cursor: pointer;
+  transition: color 150ms ease-in-out;
+  &:hover {
+      color: #bbcfe0;
+  }
 }
 
 @media (prefers-color-scheme: light) {
