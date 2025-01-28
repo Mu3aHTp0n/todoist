@@ -3,9 +3,8 @@ import { useBoardsStore } from "@store/BoardsStore"
 
 import styles from "./AddBoardForm.module.css"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
 import Button from "@shared/Button/Button"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons"
 
 export default function AddBoardForm() {
@@ -20,7 +19,7 @@ export default function AddBoardForm() {
 	function addBoard(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const isDublicateTitle = boards.some(obj => {
-			return obj.title === boardName
+			return obj.title.toLowerCase() === boardName.toLowerCase()
 		})
 		setIsError(isDublicateTitle ? true : false)
 		setError(isDublicateTitle ? 'Доска с таким названием уже есть' : '')
@@ -59,8 +58,8 @@ export default function AddBoardForm() {
 								   onChange={event => setBoardName(event.target.value)} />
 							{ isError && <p className={styles.error}>{error}</p> }
 							<section className="form__action">
-								<Button text="Отмена" handleClick={showForm} />
-								<Button text="Сохранить" color="primary"/>
+								<Button handleClick={showForm}>Отмена</Button>
+								<Button text="" color="primary">Сохранить</Button>
 							</section>
 						</form>
 					</main> }

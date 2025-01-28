@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className={styles.header} >
       <Link to={'/boards'}>
-        <i>
+        <i className={styles.header__link}>
           <FontAwesomeIcon icon={faFaceSmile} />
         </i>
       </Link>

@@ -37,6 +37,7 @@
 .error {
     color: red;
     font-weight: 700;
+    font-size: 0.8em;
 }
 
 .formContainer {

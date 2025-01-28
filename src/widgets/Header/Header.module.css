@@ -5,12 +5,8 @@
     margin-bottom: 40px;
 }
 
-i {
+.header__link {
     color: #fff;
     font-size: 8em;
     cursor: pointer;
-    transition: color 150ms ease-in-out;
-    &:hover {
-        color: #bbcfe0;
-    }
 }

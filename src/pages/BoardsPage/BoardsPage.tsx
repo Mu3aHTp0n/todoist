@@ -8,16 +8,10 @@ import BoardItem from '@shared/BoardItem/BoardItem'
 
 export default function BoardsPage() {
   const boards = useBoardsStore(state => state.boards)
-  // const removeLastBoard = useBoardsStore(state => state.removeBoard)
 
   const boardsList = boards.map(board => {
-    return <BoardItem title={board.title} link={board ? board.title.split(' ').join('') : undefined }/>
+    return <BoardItem id={board.id} key={board.id} title={board.title} link={board ? board.title.split(' ').join('') : undefined }/>
   })
-
-  // function removeBoard() {
-	// 	removeLastBoard(boards - 1);
-	// 	console.log(boards)
-	// }
 
   return (
     <main className={styles.container}>
