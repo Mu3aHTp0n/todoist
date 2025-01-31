@@ -10,10 +10,9 @@ import Button from "../Button/Button";
 interface Props {
   id: number,
   title: string,
-  link: string,
 }
 
-export default function BoardItem({id, title, link}: Props) {
+export default function BoardItem({id, title}: Props) {
   const removeBoard = useBoardsStore(state => state.removeBoard)
 
   function removeCurrentBoard() {
@@ -22,7 +21,7 @@ export default function BoardItem({id, title, link}: Props) {
 
   return (
     <div className={styles.container}>
-      <Link to={`/boards/${link}`}>
+      <Link to={`/boards/${id}`}>
           <Button handleClick={() => null}>{title}</Button>
       </Link>        
       <i className={styles.trashIcon} onClick={removeCurrentBoard}>

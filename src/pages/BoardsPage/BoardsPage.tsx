@@ -10,7 +10,7 @@ export default function BoardsPage() {
   const boards = useBoardsStore(state => state.boards)
 
   const boardsList = boards.map(board => {
-    return <BoardItem id={board.id} key={board.id} title={board.title} link={board ? board.title.split(' ').join('') : undefined }/>
+    return <BoardItem id={board.id} key={board.id} title={board.title} />
   })
 
   return (
