@@ -1,60 +1,48 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface IBoardStore {
-	boards: IBoard[];
-	addBoard: (boardName: string) => void;
-	removeBoard: (boardId: number) => void;
-	addList: (boardId: number, listName: string) => void;
-}
-
-interface IBoard {
-	id: number,
-	title: string,
-	list: IList[]
-}
-
-interface IList {
-	id: number,
-	title: string,
-	listItem: IListItem[];
-}
-
-interface IListItem {
-	id: number,
-	description: string,
-	status: boolean,
-}
+import { IBoardStore } from './type';
 
 export const useBoardsStore = create<IBoardStore>()(
 	persist(
 		set => ({
 			boards: [],
-			addBoard: (name) =>
-				set(state => ({
-					boards: [...state.boards, {
-						id: state.boards.length,
-						title: name,
-						list:[]
-					}],
-				})),
+			addBoard: (name) => {
+				set(state => {
+					const newId = state.boards.length > 0 ? Math.max(...state.boards.map(board => board.id)) + 1 : 0;
+					return {
+						boards: [...state.boards, {
+							id: newId,
+							title: name,
+							list: []
+						}]
+					}
+				})
+			},
 			removeBoard: (id) =>
 				set(state => ({
 					boards: state.boards.filter(board => board.id !== id)
 				})),
-			addList(boardId, listName) {
-				
-			},
-			// addList(boardId, listName) {
-			// 	set(state => ({
-			// 		boards: state.boards.map(board =>
-			// 			board.id === boardId
-			// 				? {
-			// 					id: 
-			// 				}
-			// 		)
-			// 	}))
-			// },
+				addList: (boardId, listName) => {
+					set((state) => {
+						const boardIndex = state.boards.findIndex(board => board.id === boardId);
+			
+						const newListId = state.boards[boardIndex].list.length > 0 
+							? Math.max(...state.boards[boardIndex].list.map(list => list.id)) + 1 
+							: 0;
+			
+						const newList = {
+							id: newListId,
+							title: listName,
+							listItem: []
+						};
+			
+						const updatedBoards = [...state.boards];
+						updatedBoards[boardIndex].list.push(newList);
+			
+						return { boards: updatedBoards };
+					});
+				},
 		}),
 		{
 			name: 'boards-storage',
