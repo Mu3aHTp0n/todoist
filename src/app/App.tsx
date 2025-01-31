@@ -10,7 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/boards" element={<BoardsPage /> } />
-        <Route path="/boards/:name" element={<BoardPage /> } />
+        <Route path="/boards/:id" element={<BoardPage /> } />
       </Routes>
     </BrowserRouter>
   )
