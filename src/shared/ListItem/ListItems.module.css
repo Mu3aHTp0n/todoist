@@ -1,0 +1,18 @@
+.container {
+    border: 1px solid aliceblue;
+    border-radius: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: #1d1d1d;
+    font-weight: 500;
+}
+
+.active {
+    background-color: hsl(120, 40%, 80%);
+    border-color: hsl(120, 80%, 40%);
+}
+
+.disable {
+    background-color: hsl(0, 40%, 80%);
+    border-color: hsl(0, 80%, 40%);
+}
