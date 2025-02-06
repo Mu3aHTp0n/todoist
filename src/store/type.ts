@@ -4,6 +4,12 @@ export interface IBoardStore {
   removeBoard: (boardId: string) => void;
   addList: (boardId: string, listName: string) => void;
   addListItem: (boardId: string, listId: string, itemTitle: string) => void;
+  changeStatus: (
+    boardId: string,
+    listId: string,
+    itemId: string,
+    currentStatus: boolean,
+  ) => void;
 }
 
 export interface IBoard {

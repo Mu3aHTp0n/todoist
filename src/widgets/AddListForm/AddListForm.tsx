@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { useBoardsStore } from '@store/BoardsStore';
 
 import styles from './AddListForm.module.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
-import { useBoardsStore } from '@store/BoardsStore';
 import Button from '@shared/Button/Button';
 
 export default function AddListForm({ boardId }) {
@@ -20,7 +20,7 @@ export default function AddListForm({ boardId }) {
 
   function addNewList(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    addList(+boardId, listName);
+    addList(boardId, listName);
     setIsFormOpen(false);
     setListName('');
   }

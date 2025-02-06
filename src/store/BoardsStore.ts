@@ -50,13 +50,9 @@ export const useBoardsStore = create<IBoardStore>()(
           const boardIndex = state.boards.findIndex(
             board => board.id === boardId,
           );
-          console.log('board of index: ', state.boards[boardIndex]);
           const listIndex = state.boards[boardIndex].list.findIndex(
             list => list.id === listId,
           );
-
-          console.warn('listIndex: ', listIndex);
-          console.warn(state.boards[boardIndex].list[listIndex]);
 
           const newListItem = {
             id: uuidv4(),
@@ -66,6 +62,24 @@ export const useBoardsStore = create<IBoardStore>()(
 
           const updatedBoards = [...state.boards];
           updatedBoards[boardIndex].list[listIndex].listItem.push(newListItem);
+          return { boards: updatedBoards };
+        });
+      },
+      changeStatus: (boardId, listId, itemId, currentStatus) => {
+        set(state => {
+          const boardIndex = state.boards.findIndex(
+            board => board.id === boardId,
+          );
+          const listIndex = state.boards[boardIndex].list.findIndex(
+            list => list.id === listId,
+          );
+          const itemIndex = state.boards[boardIndex].list[
+            listIndex
+          ].listItem.findIndex(item => item.id === itemId);
+
+          const updatedBoards = [...state.boards];
+          updatedBoards[boardIndex].list[listIndex].listItem[itemIndex].status =
+            !currentStatus;
           return { boards: updatedBoards };
         });
       },

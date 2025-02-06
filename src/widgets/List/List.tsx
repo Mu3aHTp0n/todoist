@@ -1,48 +1,55 @@
-import { useBoardsStore } from '../../store/BoardsStore'
+import { useState } from 'react';
+import { useBoardsStore } from '../../store/BoardsStore';
 
-import { IList } from '@store/type'
+import { IList } from '@store/type';
 
-import styles from './List.module.css'
+import styles from './List.module.css';
 
-import ListItem from '@shared/ListItem/ListItem'
+import ListItem from '@shared/ListItem/ListItem';
 
 interface Props {
-  title: string,
-  currentList: IList,
+  boardId: string;
+  listId: string;
+  title: string;
+  currentList: IList;
 }
 
-export default function List({title, currentList}: Props) {
+export default function List({ boardId, listId, title, currentList }: Props) {
+  const addListItemStore = useBoardsStore(state => state.addListItem);
+  const [formValue, setFormValue] = useState('');
 
-  const listItemses = [
-    {
-      id: 0,
-      title: 'Pfujkjdjr',
-      status: true,
-    },
-    {
-      id: 1,
-      title: 'Заголовок',
-      status: false,
-    },
-    {
-      id: 2,
-      title: 'kuru kuru',
-      status: false,
-    },
-  ]
+  function addListItem() {
+    addListItemStore(boardId, listId, formValue);
+    setFormValue('');
+  }
 
-  const listItems = listItemses?.map(listItem => {    
-    return <ListItem itemTitle={listItem.title} status={listItem.status} />
-  })
+  const listItems = currentList?.map(listItem => {
+    return (
+      <ListItem
+        boardId={boardId}
+        listId={listId}
+        itemId={listItem.id}
+        itemTitle={listItem.description}
+        status={listItem.status}
+      />
+    );
+  });
 
   return (
     <section className={styles.container}>
       <h3>{title}</h3>
-			<hr className={styles.separator} />
-			{/* Кнопка для добавления нового итема */}
-      <div className={styles.itemsList}>
-			  { listItems }
-      </div>
+      <hr className={styles.separator} />
+      <form onSubmit={event => event.preventDefault()}>
+        <input
+          type='text'
+          required
+          placeholder='Введите что-нибудь'
+          value={formValue}
+          onChange={event => setFormValue(event.target.value)}
+        />
+        <button onClick={addListItem}>Save</button>
+      </form>
+      <div className={styles.itemsList}>{listItems}</div>
     </section>
-  )
+  );
 }

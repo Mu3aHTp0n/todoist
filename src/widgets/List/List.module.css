@@ -1,17 +1,17 @@
 .container {
-    background-color: hsl(240, 15%, 40%);
-    padding: 10px 20px;
-    border-radius: 12px;
+  background-color: hsl(240, 15%, 40%);
+  padding: 10px 20px;
+  border-radius: 12px;
 }
 
 .separator {
-    width: 100%;
-    border: 1px solid hsl(240, 5%, 40%);
-    margin-bottom: 4px;
+  width: 100%;
+  border: 1px solid hsl(240, 5%, 20%);
+  margin-bottom: 4px;
 }
 
 .itemsList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
