@@ -43,11 +43,13 @@ export default function List({ boardId, listId, title, currentList }: Props) {
         <input
           type='text'
           required
-          placeholder='Введите что-нибудь'
+          placeholder='Enter чтобы сохранить'
           value={formValue}
           onChange={event => setFormValue(event.target.value)}
         />
-        <button onClick={addListItem}>Save</button>
+        <button className={styles.form__button} onClick={addListItem}>
+          Save
+        </button>
       </form>
       <div className={styles.itemsList}>{listItems}</div>
     </section>

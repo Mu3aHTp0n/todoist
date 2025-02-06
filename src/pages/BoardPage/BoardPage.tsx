@@ -41,8 +41,10 @@ export default function BoardPage() {
   return (
     <div className={styles.container}>
       <h3>Доска: {currentBoard[0].title}</h3>
-      {allList}
-      <AddListForm boardId={id} />
+      <section className={styles.list__container}>
+        {allList}
+        <AddListForm boardId={id} />
+      </section>
     </div>
   );
 }
