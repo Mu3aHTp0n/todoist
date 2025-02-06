@@ -1,6 +1,7 @@
 .form__container {
+  align-self: flex-start;
   display: grid;
-  padding: 0.5rem 2rem;
+  padding: 3rem 2rem;
   align-content: center;
   border: 4px solid hsl(43, 100%, 55%);
   background-color: hsla(240, 80%, 60%, 0.5);
