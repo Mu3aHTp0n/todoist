@@ -1,7 +1,10 @@
 :root {
-  --primary-color: #5313e9;
+  --primary-color: hsl(240, 80%, 60%);
+  --secondary-color: hsl(40, 100%, 55%);
+  --accent-color: hsl(240, 60%, 12%);
+  --text-color: hsl(270, 100%, 95%);
 
-  font-family: "Zen Kaku Gothic New", serif;
+  font-family: 'Zen Kaku Gothic New', serif;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -25,6 +28,17 @@ a:hover {
 body {
   min-width: 320px;
   min-height: 100vh;
+  background:
+    radial-gradient(
+        30% 40% at 40% 30%,
+        rgba(33, 36, 41, 0.5) 0%,
+        rgba(33, 36, 41, 0) 100%
+      )
+      no-repeat,
+    url('https://store.fastly.steamstatic.com/public/shared/images/joinsteam/acct_creation_bg.jpg') -45vw
+      0 no-repeat,
+    #212429;
+  background-position-x: -20vw;
 }
 
 h1 {
@@ -51,7 +65,7 @@ i {
   cursor: pointer;
   transition: color 150ms ease-in-out;
   &:hover {
-      color: #bbcfe0;
+    color: #bbcfe0;
   }
 }
 

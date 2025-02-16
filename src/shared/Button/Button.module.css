@@ -10,7 +10,7 @@ button {
     translate 140ms ease-in-out,
     box-shadow 140ms ease-in-out;
   &:hover {
-    background-color: color-mix(in oklab, #5313e9, black 15%);
+    background-color: color-mix(in oklab, var(--primary-color), black 15%);
     translate: 0 2px;
     box-shadow: 0px -4px 0px 0px #000;
   }
@@ -29,7 +29,7 @@ button {
 }
 
 .primary {
-  background-color: #5313e9;
+  background-color: var(--primary-color);
   color: #f0f8ff;
 }
 .secondary {
