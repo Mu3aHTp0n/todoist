@@ -39,6 +39,7 @@ body {
       0 no-repeat,
     #212429;
   background-position-x: -20vw;
+  background-size: contain;
 }
 
 h1 {
