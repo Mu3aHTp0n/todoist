@@ -1,46 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useBoardsStore } from '@store/BoardsStore';
 
-import styles from './BoardPage.module.css';
+import { fetchList } from './api/fetchLists';
 
 import List from '@widgets/List/List';
 import AddListForm from '@widgets/AddListForm/AddListForm';
 
+import styles from './BoardPage.module.css';
+import { IListResponse } from './model/fetchListsResponse';
+
 export default function BoardPage() {
   const { id } = useParams();
-  const boards = useBoardsStore(state => state.boards);
-  const currentBoard = boards.filter(board => board.id === id);
 
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<IListResponse>();
 
   useEffect(() => {
     if (!id) return;
-
-    const currentBoard = boards.filter(board => board.id === id);
-    if (currentBoard.length > 0) {
-      setList(currentBoard[0].list);
-    } else {
-      console.error(`Board with id ${id} not found`);
-      setList([]);
-    }
-  }, [id, boards]);
+    const getLists = async () => {
+      const response = await fetchList(id);
+      setList(response);
+    };
+    getLists();
+  }, [id]);
 
   const allList = list?.map(list => {
     return (
-      <List
-        key={list.id}
-        boardId={currentBoard[0].id}
-        listId={list.id}
-        title={list.title}
-        currentList={list.listItem}
-      />
+      <List key={list.id} boardId={id} listId={list.id} title={list.name} />
     );
   });
 
   return (
     <div className={styles.container}>
-      <h3>Доска: {currentBoard[0].title}</h3>
+      {/* <h3>Доска: {currentBoard[0].title}</h3> */}
       <section className={styles.list__container}>
         {allList}
         <AddListForm boardId={id} />

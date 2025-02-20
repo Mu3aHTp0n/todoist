@@ -5,7 +5,7 @@ interface Props {
   color?: string;
   size?: string;
   children: ReactNode | string;
-  handleClick: () => void;
+  handleClick?: () => void;
 }
 
 export default function Button({ color, size, children, handleClick }: Props) {
