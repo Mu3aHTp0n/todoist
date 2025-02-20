@@ -1,21 +1,20 @@
 import { useState } from 'react';
-import { useBoardsStore } from '@store/BoardsStore';
 
-import styles from './AddBoardForm.module.css';
+import { addBoard } from './api/AddBoard';
 
 import Button from '@shared/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
 
-export default function AddBoardForm() {
-  const addNewBoard = useBoardsStore(state => state.addBoard);
+import styles from './AddBoardForm.module.css';
 
+export default function AddBoardForm() {
   const [isOpen, setIsOpen] = useState(false);
   const [boardName, setBoardName] = useState('');
 
-  function addBoard(event: React.FormEvent<HTMLFormElement>) {
+  function addNewBoard(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    addNewBoard(boardName);
+    addBoard(boardName);
     setBoardName('');
   }
 
@@ -36,7 +35,7 @@ export default function AddBoardForm() {
         {isOpen && (
           <main className={`${styles.formContainer}`}>
             <h3 className={styles.form__title}>Название доски</h3>
-            <form onSubmit={event => addBoard(event)}>
+            <form onSubmit={event => addNewBoard(event)}>
               <label className={styles.form__label}>Введите название</label>
               <input
                 className={styles.form__input}
