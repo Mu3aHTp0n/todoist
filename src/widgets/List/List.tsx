@@ -1,39 +1,47 @@
-import { useState } from 'react';
-import { useBoardsStore } from '../../store/BoardsStore';
+import { useEffect, useState } from 'react';
 
-import { IList } from '@store/type';
-
-import styles from './List.module.css';
+import { ITaskResponse } from './model/fetchTasksResponse';
 
 import ListItem from '@shared/ListItem/ListItem';
+import { fetchTasks } from './api/fetchTasks';
+
+import styles from './List.module.css';
+import { createTask } from './api/createTask';
 
 interface Props {
   boardId: string;
   listId: string;
   title: string;
-  currentList: IList;
 }
 
-export default function List({ boardId, listId, title, currentList }: Props) {
-  const addListItemStore = useBoardsStore(state => state.addListItem);
+export default function List({ boardId, listId, title }: Props) {
   const [formValue, setFormValue] = useState('');
+  const [taskList, setTaskList] = useState<ITaskResponse>([]);
 
   function addListItem() {
-    addListItemStore(boardId, listId, formValue);
+    createTask(formValue, listId);
     setFormValue('');
   }
 
-  const listItems = currentList?.map(listItem => {
-    return (
-      <ListItem
-        boardId={boardId}
-        listId={listId}
-        itemId={listItem.id}
-        itemTitle={listItem.description}
-        status={listItem.status}
-      />
-    );
-  });
+  useEffect(() => {
+    const getTasks = async () => {
+      const response = await fetchTasks(boardId, listId);
+      console.log(response);
+      const listItems = response?.map(listItem => {
+        return (
+          <ListItem
+            boardId={boardId}
+            listId={listId}
+            itemId={listItem.id}
+            itemTitle={listItem.name}
+            status={listItem.isActive}
+          />
+        );
+      });
+      setTaskList(listItems);
+    };
+    getTasks();
+  }, []);
 
   return (
     <section className={styles.container}>
@@ -51,7 +59,7 @@ export default function List({ boardId, listId, title, currentList }: Props) {
           Save
         </button>
       </form>
-      <div className={styles.itemsList}>{listItems}</div>
+      <div className={styles.itemsList}>{taskList}</div>
     </section>
   );
 }
