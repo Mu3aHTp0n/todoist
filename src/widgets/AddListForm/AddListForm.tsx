@@ -1,22 +1,27 @@
 import { useState } from 'react';
-import { useBoardsStore } from '@store/BoardsStore';
 
-import styles from './AddListForm.module.css';
+import { addList } from './api/addList';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons/faXmark';
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
 import Button from '@shared/Button/Button';
 
-export default function AddListForm({ boardId }) {
-  const addList = useBoardsStore(state => state.addList);
+import styles from './AddListForm.module.css';
 
+interface Props {
+  boardId: string;
+}
+
+export default function AddListForm({ boardId }: Props) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [listName, setListName] = useState('');
 
-  function addNewList(event: React.FormEvent<HTMLFormElement>) {
+  async function addNewList(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    addList(boardId, listName);
+    console.log(boardId);
+    const response = await addList(listName, boardId);
+    console.log(response);
     setIsFormOpen(false);
     setListName('');
   }
