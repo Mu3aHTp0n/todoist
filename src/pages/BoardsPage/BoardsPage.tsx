@@ -1,25 +1,30 @@
-// import Button from '@shared/Button'
-import { useBoardsStore } from '@store/BoardsStore'
+import { fetchBoards } from './api/fetchBoards';
 
-import styles from './BoardsPage.module.css'
+import AddBoardForm from '@widgets/AddBoardForm/AddBoardForm';
+import BoardItem from '@shared/BoardItem/BoardItem';
 
-import AddBoardForm from '@widgets/AddBoardForm/AddBoardForm'
-import BoardItem from '@shared/BoardItem/BoardItem'
+import styles from './BoardsPage.module.css';
+import { useState, useEffect } from 'react';
 
 export default function BoardsPage() {
-  const boards = useBoardsStore(state => state.boards)
+  const [boardsList, setBoardsList] = useState([]);
 
-  const boardsList = boards.map(board => {
-    return <BoardItem id={board.id} key={board.id} title={board.title} />
-  })
+  useEffect(() => {
+    const getBoards = async () => {
+      const boards = await fetchBoards();
+      const boardList = boards?.map(board => {
+        return <BoardItem id={board.id} key={board.id} title={board.name} />;
+      });
+      console.log(boards);
+      setBoardsList(boardList);
+    };
+    getBoards();
+  }, []);
 
   return (
     <main className={styles.container}>
       <AddBoardForm />
-      {/* <Button text='Удалить последнюю доску' handleClick={removeBoard}/> */}
-      <ul className={styles.boardsList}>
-        {boardsList}
-      </ul>
+      <ul className={styles.boardsList}>{boardsList}</ul>
     </main>
-  )
+  );
 }
