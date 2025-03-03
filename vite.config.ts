@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import path from 'path'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,6 +12,6 @@ export default defineConfig({
       '@store': path.resolve(__dirname, './src/store'),
       '@widgets': path.resolve(__dirname, './src/widgets'),
       '@shared': path.resolve(__dirname, './src/shared'),
-    }
-  }
-})
+    },
+  },
+});
