@@ -1,0 +1,10 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: aliceblue;
+  padding: 12px;
+  border-radius: 6px;
+}
+.button {
+  margin-bottom: 8px;
+}
