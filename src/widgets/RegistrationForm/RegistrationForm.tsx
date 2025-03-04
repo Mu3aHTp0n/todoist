@@ -2,28 +2,38 @@ import { useState } from 'react';
 
 import { registration } from './api/registration';
 
+import styles from './RegistrationForm.module.css';
+
 export default function RegistrationForm() {
   const [regData, setRegData] = useState({
     email: '',
     password: '',
     name: '',
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string[]>([]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       await registration(regData);
-      localStorage.setItem('accessToken', response.data.token);
-      setError('');
+      location.reload();
+      setError([]);
     } catch (error) {
+      if (typeof error !== 'string') {
+        setError(
+          error?.map(error => {
+            return <li>{error}</li>;
+          }),
+        );
+      }
       setError(error);
     }
   };
 
   return (
     <div>
-      <form onSubmit={event => handleSubmit(event)}>
+      <form className={styles.form} onSubmit={event => handleSubmit(event)}>
+        <h3>Регистрация</h3>
         <input
           type='email'
           placeholder='Почта'
@@ -51,8 +61,8 @@ export default function RegistrationForm() {
             setRegData({ ...regData, name: event.target.value })
           }
         />
-        {error && <p style={{ color: 'red', fontWeight: 700 }}>{error}</p>}
-        <button>Отправить</button>
+        {error && <ul style={{ color: 'red', fontWeight: 700 }}>{error}</ul>}
+        <button style={{ width: '100%' }}>Отправить</button>
       </form>
     </div>
   );
