@@ -11,7 +11,6 @@ export const login = async (authData: IAuthData) => {
   try {
     const response = await axios.post(`${BACKEND_API}/auth/login`, authData);
     localStorage.setItem('accessToken', response.data.token);
-    return response.data.token;
   } catch (error) {
     if (error.response) {
       const { data } = error.response;

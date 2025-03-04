@@ -1,6 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-
-const BACKEND_API = import.meta.env.VITE_BACKEND_HOST;
+import { $api } from '@app/api';
+import { AxiosResponse } from 'axios';
 
 import { ITaskResponse } from '../model/fetchTasksResponse';
 
@@ -9,13 +8,8 @@ export const fetchTasks = async (
   listId: string,
 ): Promise<AxiosResponse<ITaskResponse>> => {
   try {
-    const response = await axios.get(
-      `${BACKEND_API}/task/task?boardId=${boardId}&listId=${listId}`,
-      {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-        },
-      },
+    const response = await $api.get(
+      `/task/task?boardId=${boardId}&listId=${listId}`,
     );
     return response.data;
   } catch (error) {

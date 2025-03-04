@@ -15,7 +15,6 @@ export const registration = async (regData: IRegData) => {
       regData,
     );
     localStorage.setItem('accessToken', response.data.token);
-    return response.data.token;
   } catch (error) {
     if (error.response) {
       const { data } = error.response;

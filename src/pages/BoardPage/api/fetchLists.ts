@@ -1,21 +1,13 @@
-import axios, { AxiosResponse } from 'axios';
+import { $api } from '@app/api';
+import { AxiosResponse } from 'axios';
 
 import { IListResponse } from '../model/fetchListsResponse';
-
-const BACKEND_API = import.meta.env.VITE_BACKEND_HOST;
 
 export const fetchList = async (
   boardId: string,
 ): Promise<AxiosResponse<IListResponse>> => {
   try {
-    const response = await axios.get(
-      `${BACKEND_API}/list/list?boardId=${boardId}`,
-      {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-        },
-      },
-    );
+    const response = await $api.get(`/list/list?boardId=${boardId}`);
     return response.data;
   } catch (error) {
     if (error.response) {

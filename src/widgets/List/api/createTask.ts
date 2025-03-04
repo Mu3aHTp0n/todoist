@@ -1,24 +1,15 @@
-import axios, { AxiosResponse } from 'axios';
-
-const BACKEND_API = import.meta.env.VITE_BACKEND_HOST;
+import { $api } from '@app/api';
+import { AxiosResponse } from 'axios';
 
 export const createTask = async (
   name: string,
   listId: string,
 ): Promise<AxiosResponse<string>> => {
   try {
-    const response = await axios.post(
-      `${BACKEND_API}/task/createTask`,
-      {
-        name: name,
-        listId: listId,
-      },
-      {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-        },
-      },
-    );
+    const response = await $api.post(`/task/createTask`, {
+      name: name,
+      listId: listId,
+    });
     return response.data;
   } catch (error) {
     if (error.response) {
