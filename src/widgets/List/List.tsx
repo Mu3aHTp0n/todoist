@@ -30,6 +30,7 @@ export default function List({ boardId, listId, title }: Props) {
       const listItems = response?.map(listItem => {
         return (
           <ListItem
+            key={listItem.id}
             boardId={boardId}
             listId={listId}
             itemId={listItem.id}
