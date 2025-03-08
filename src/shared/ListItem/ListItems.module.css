@@ -1,4 +1,8 @@
 .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
   border: 1px solid aliceblue;
   border-radius: 8px;
   padding: 4px 8px;
@@ -18,4 +22,8 @@
 .disable {
   background-color: hsl(0, 40%, 80%);
   border-color: hsl(0, 80%, 40%);
+}
+
+.icon:hover {
+  color: #4e4e4e;
 }

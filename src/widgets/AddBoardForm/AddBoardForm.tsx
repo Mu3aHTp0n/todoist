@@ -1,22 +1,32 @@
 import { useState } from 'react';
-import { useBoardsStore } from '@store/BoardsStore';
+import { useBoardsStore } from '../../store/BoardsStore.ts';
 
-import styles from './AddBoardForm.module.css';
+import { addBoard } from './api/AddBoard';
 
+import { fetchBoards } from '../../pages/BoardsPage/api/fetchBoards.ts';
 import Button from '@shared/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
+import styles from './AddBoardForm.module.css';
 
 export default function AddBoardForm() {
-  const addNewBoard = useBoardsStore(state => state.addBoard);
-
   const [isOpen, setIsOpen] = useState(false);
   const [boardName, setBoardName] = useState('');
+  const setBoards = useBoardsStore(state => state.setBoards);
 
-  function addBoard(event: React.FormEvent<HTMLFormElement>) {
+  const addNewBoard = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    addNewBoard(boardName);
-    setBoardName('');
+    try {
+      const response = await addBoard(boardName);
+      alert(response.message);
+      setBoardName('');
+      setIsOpen(false);
+      const boardsList = await fetchBoards()
+      setBoards(boardsList);
+    } catch (error) {
+      console.log(error);
+    } 
   }
 
   function showForm() {
@@ -36,7 +46,7 @@ export default function AddBoardForm() {
         {isOpen && (
           <main className={`${styles.formContainer}`}>
             <h3 className={styles.form__title}>Название доски</h3>
-            <form onSubmit={event => addBoard(event)}>
+            <form onSubmit={event => addNewBoard(event)}>
               <label className={styles.form__label}>Введите название</label>
               <input
                 className={styles.form__input}
@@ -47,8 +57,8 @@ export default function AddBoardForm() {
                 onChange={event => setBoardName(event.target.value)}
               />
               <section className='form__action'>
-                <Button handleClick={showForm}>Отмена</Button>
-                <Button text='' color='primary'>
+                <Button type='reset' handleClick={showForm}>Отмена</Button>
+                <Button type='submit' color='primary'>
                   Сохранить
                 </Button>
               </section>
