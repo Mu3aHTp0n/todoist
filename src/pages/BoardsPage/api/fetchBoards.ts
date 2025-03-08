@@ -1,5 +1,5 @@
 import { $api } from '@app/api';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { IBoardResponse } from '../model/fetchBoardResponse';
 
@@ -9,9 +9,11 @@ export const fetchBoards = async (): Promise<AxiosResponse<IBoardResponse>> => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      const { status } = error.response;
-      return status;
+    if (error instanceof AxiosError) {
+      if (error.response) {
+        const { data } = error.response;
+        return data;
+      }
     }
     return Promise.reject(new Error(''));
   }

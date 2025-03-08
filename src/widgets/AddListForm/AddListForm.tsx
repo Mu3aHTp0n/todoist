@@ -19,11 +19,14 @@ export default function AddListForm({ boardId }: Props) {
 
   async function addNewList(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(boardId);
-    const response = await addList(listName, boardId);
-    console.log(response);
-    setIsFormOpen(false);
-    setListName('');
+    try {
+      const response = await addList(listName, boardId);
+      alert(response.message);
+      setIsFormOpen(false);
+      setListName('');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

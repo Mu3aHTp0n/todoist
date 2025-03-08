@@ -1,6 +1,3 @@
-export interface IBoard {
-  id: string;
-  name: string;
-}
+import { IBoard } from '../../../store/type.ts';
 
 export type IBoardResponse = IBoard[];

@@ -17,13 +17,13 @@ export default function RouterProvider() {
           path='/'
           element={isLogged ? <Navigate to='/boards' replace /> : <AuthPage />}
         />
-        {isLogged ? (
+        {!isLogged ? (
+          location.pathname !== '/' && <Route path='*' element={<Page401 />} />
+        ) : (
           <>
             <Route path='/boards' element={<BoardsPage />} />
             <Route path='/boards/:id' element={<BoardPage />} />
           </>
-        ) : (
-          <Page401 />
         )}
       </Routes>
     </>

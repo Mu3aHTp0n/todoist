@@ -14,8 +14,9 @@ interface Props {
 }
 
 export default function BoardItem({ id, title }: Props) {
-  function removeCurrentBoard() {
-    deleteBoard(id);
+  const removeCurrentBoard = async () => {
+    const response = await deleteBoard(id);
+    alert(response.message)
   }
 
   return (
